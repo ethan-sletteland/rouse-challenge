@@ -1,0 +1,30 @@
+<h1>Rouse Challenge</h1>
+
+<form >
+  <label for="ModelId">Model</label> 
+  <select [(ngModel)]="modelId" name="ModelId" (change)="selectModel()">
+    <option *ngFor="let point of data" [value]="point.id">ID{{point.id}} model {{point.data.classification.model}}
+    </option>
+  </select> 
+  <label for="year">Year</label> 
+  <select [(ngModel)]="year" name="year" (change)="selectModelYear()">
+    <option 
+      *ngFor="let year of selectedModel?.data?.schedule?.years | keyvalue " 
+      [value]="year.key">{{year.key}} 
+    </option>
+  </select> 
+</form>
+
+<div class="results" *ngIf="marketValue && auctionValue">
+  marketValue: {{marketValue | currency}}
+  auctionValue: {{auctionValue | currency}}
+</div>
+
+<div *ngIf="error" class="error">
+  {{error.message}}
+</div>
+
+<ul>
+  <li><button (click)="setYearId('2007','67352')">Year 2007 ID 67352</button></li>
+  <li><button (click)="setYearId('2011','87964')">Year 2011 ID 87964</button></li>
+</ul>

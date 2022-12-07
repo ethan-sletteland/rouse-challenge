@@ -1,0 +1,26 @@
+@mixin spacing {
+    padding: 15px;
+    margin: 15px;
+    border: 1px solid black;
+}
+
+h1 {}
+
+form {
+    @include spacing;
+    label {
+        margin: 5px;
+    }
+    select {
+        margin: 5px;
+    }
+}
+
+.results {
+    @include spacing;
+}
+
+.error {
+    @include spacing;
+    color: red;
+}
