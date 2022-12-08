@@ -1,5 +1,5 @@
 <h1>Rouse Challenge</h1>
-
+<p>code at <a href="https://github.com/ethan-sletteland/rouse-challenge" target="_blank">https://github.com/ethan-sletteland/rouse-challenge</a></p>
 <form >
   <label for="ModelId">Model</label> 
   <select [(ngModel)]="modelId" name="ModelId" (change)="selectModel()">
@@ -24,7 +24,7 @@
   {{error.message}}
 </div>
 
-<ul>
+<ul class="data-buttons">
   <li><button (click)="setYearId('2007','67352')">Year 2007 ID 67352</button></li>
   <li><button (click)="setYearId('2011','87964')">Year 2011 ID 87964</button></li>
 </ul>

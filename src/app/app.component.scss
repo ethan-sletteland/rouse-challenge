@@ -20,6 +20,15 @@ form {
     @include spacing;
 }
 
+ul {
+    padding: 0
+    
+    li {
+        list-style: none;
+        padding: 5px 0;
+    }
+}
+
 .error {
     @include spacing;
     color: red;

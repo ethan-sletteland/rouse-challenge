@@ -25,6 +25,7 @@ export class AppComponent {
   constructor() {
     this.data = []
 
+    // just going to massage the data a bit so that I can use an array with clean types
     const keys = Object.keys(dataObj) as (keyof typeof dataObj)[];
     keys.forEach((id) => {
       const dataPoint = dataObj[id]
@@ -59,6 +60,7 @@ export class AppComponent {
     this.error = (code) ? this.errorMessages.filter(e => e.code === code)[0] : undefined
   }
 
+  // this method is only used by the set data buttons
   setYearId(year: string, id: string) {
     this.modelId = id
     this.selectModel()
