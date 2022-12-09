@@ -21,6 +21,7 @@ export class AppComponent {
     {code: 'NOMODEL', message: 'No model was found with that ID'},
     {code: 'NOYEAR', message: 'No year has been specified'},
   ]
+  estimate: boolean = false
 
   constructor() {
     this.data = []
@@ -40,16 +41,21 @@ export class AppComponent {
     this.selectedModel = this.data.filter((d) => d.id === this.modelId)[0]
     this.marketValue = undefined
     this.auctionValue = undefined
+    this.estimate = false
     this.setErrorState((this.selectedModel) ? undefined : "NOMODEL" )
   }
 
   selectModelYear() { 
     if (this.year) {
       this.selectedModelYear = this.selectedModel?.data.schedule.years[this.year]
+      if (!this.selectedModelYear) {
+        this.estimateValue()
+      }
     } else {
       this.setErrorState('NOYEAR')
     }
     if (this.selectedModel && this.selectedModelYear) {
+      this.estimate = false
       let cost = this.selectedModel.data.saleDetails.cost
       this.marketValue = cost * this.selectedModelYear.marketRatio
       this.auctionValue = cost * this.selectedModelYear.auctionRatio
@@ -68,6 +74,31 @@ export class AppComponent {
     this.selectModelYear()
   }
 
+  estimateValue() {
+    if (this.selectedModel) {
+      let cost = this.selectedModel.data.saleDetails.cost
+      let defaultAuctionRatio = this.selectedModel.data.schedule.defaultAuctionRatio
+      let defaultMarketRatio = this.selectedModel.data.schedule.defaultMarketRatio
+      let years: any[] = []
+      const keys = Object.keys(this.selectedModel.data.schedule.years) as (keyof typeof this.selectedModel.data.schedule.years)[];
+      keys.forEach((id) => {
+        years.push({year: id, data: this.selectedModel?.data.schedule.years[id]});
+      });
+
+      //TODO: don't trust the data, sort it
+      // const sortedYears = years.sort((year) => { 
+      //   return year.
+      // })
+
+      this.estimate = true
+      if(this.year){
+        const yearDiff = Math.abs(parseInt(this.year) - parseInt(years[0].year))
+        //TODO:  this isn't correct!
+        this.marketValue = cost * (years[0].data.marketRatio * (defaultMarketRatio / yearDiff))
+        this.auctionValue = cost * (years[0].data.auctionRatio * (defaultAuctionRatio / yearDiff))
+      }
+    }
+  }
 }
 
 interface DataPoint  {

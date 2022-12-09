@@ -16,6 +16,7 @@
 </form>
 
 <div class="results" *ngIf="marketValue && auctionValue">
+  <div *ngIf="estimate">This is an estimate!</div>
   marketValue: {{marketValue | currency}}
   auctionValue: {{auctionValue | currency}}
 </div>
@@ -27,4 +28,7 @@
 <ul class="data-buttons">
   <li><button (click)="setYearId('2007','67352')">Year 2007 ID 67352</button></li>
   <li><button (click)="setYearId('2011','87964')">Year 2011 ID 87964</button></li>
+  <li><button (click)="setYearId('2005','67352')">Year 2005 ID 67352</button></li>
+  <li><button (click)="setYearId('2004','67352')">Year 2004 ID 67352</button></li>
+
 </ul>
